@@ -1,6 +1,7 @@
 import { extractContact } from "./parser/contactExtractor";
 import { extractSkills } from "./parser/skillExtractor";
 import { extractEducation } from "./parser/educationExtractor";
+import { extractExperience } from "./parser/experienceExtractor";
 
 export const analyzeResume = (text) => {
 
@@ -11,6 +12,8 @@ export const analyzeResume = (text) => {
     const skills = extractSkills(text);
 
     const education = extractEducation(text);
+
+    const experience = extractExperience(text);
 
     let atsScore = 0;
 
@@ -30,7 +33,7 @@ export const analyzeResume = (text) => {
 
         education,
 
-        experience: "",
+        experience,
 
         projects: [],
 
