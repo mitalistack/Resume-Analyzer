@@ -1,7 +1,14 @@
 export const extractSection = (text, startHeading, endHeading) => {
   const upperText = text.toUpperCase();
 
-  const startIndex = upperText.indexOf(startHeading.toUpperCase());
+  const startRegex = new RegExp(
+    `(^|\\s{2,})${startHeading}(\\s{2,}|$)`,
+    "i"
+  );
+
+  const startMatch = text.match(startRegex);
+
+  const startIndex = startMatch ? startMatch.index : -1;
 
   if (startIndex === -1) {
     return "";
@@ -10,13 +17,18 @@ export const extractSection = (text, startHeading, endHeading) => {
   let endIndex = text.length;
 
   if (endHeading) {
-    const foundEnd = upperText.indexOf(
-      endHeading.toUpperCase(),
-      startIndex
+    
+    const endRegex = new RegExp(
+      `(^|\\s{2,})${endHeading}(\\s{2,}|$)`,
+      "i"
     );
 
-    if (foundEnd !== -1) {
-      endIndex = foundEnd;
+    const remainingText = text.substring(startIndex);
+
+    const endMatch = remainingText.match(endRegex);
+
+    if (endMatch) {
+      endIndex = startIndex + endMatch.index;
     }
   }
 
