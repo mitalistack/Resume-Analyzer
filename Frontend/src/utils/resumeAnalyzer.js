@@ -1,4 +1,6 @@
 import { extractContact } from "./parser/contactExtractor";
+import { extractSkills } from "./parser/skillExtractor";
+import { extractEducation } from "./parser/educationExtractor";
 
 export const analyzeResume = (text) => {
 
@@ -6,34 +8,9 @@ export const analyzeResume = (text) => {
 
     const { email, phone, linkedin, github } = extractContact(text);
 
-    const skillDatabase = [
-        "React",
-        "JavaScript",
-        "TypeScript",
-        "HTML",
-        "CSS",
-        "Tailwind CSS",
-        "Bootstrap",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "MySQL",
-        "Java",
-        "Python",
-        "C",
-        "C++",
-        "Git",
-        "GitHub",
-        "Redux",
-        "REST API",
-        "Firebase",
-        "Vite",
-        "Next.js"
-    ];
+    const skills = extractSkills(text);
 
-    const skills = skillDatabase.filter((skill) =>
-        resume.includes(skill.toLowerCase())
-    );
+    const education = extractEducation(text);
 
     let atsScore = 0;
 
@@ -51,7 +28,7 @@ export const analyzeResume = (text) => {
     return {
         skills,
 
-        education: "",
+        education,
 
         experience: "",
 
