@@ -1,4 +1,6 @@
-const Dashboard = ({ atsScore }) => {
+const Dashboard = ({ analysis }) => {
+
+  const atsScore = analysis?.atsScore || 0;
 
   const getJobs = () => {
     if (atsScore >= 90) {
@@ -55,8 +57,8 @@ const Dashboard = ({ atsScore }) => {
               {atsScore >= 90
                 ? "Excellent"
                 : atsScore >= 80
-                ? "Good"
-                : "Needs Improvement"}
+                  ? "Good"
+                  : "Needs Improvement"}
             </p>
           </div>
 
@@ -67,10 +69,13 @@ const Dashboard = ({ atsScore }) => {
             </h3>
 
             <ul className="text-gray-300 space-y-2">
-              <li>✔ React</li>
-              <li>✔ JavaScript</li>
-              <li>✔ HTML</li>
-              <li>✔ CSS</li>
+              {analysis?.skills?.length > 0 ? (
+                analysis.skills.map((skill, index) => (
+                  <li key={index}>✔ {skill}</li>
+                ))
+              ) : (
+                <li>No skills detected</li>
+              )}
             </ul>
           </div>
 

@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { analyzeResume } from "../utils/resumeAnalyzer";
+import { extractTextFromPDF } from "../utils/resumeParser";
 
-const UploadResume = ({ setAtsScore }) => {
+const UploadResume = ({ setAnalysis }) => {
+
     const [file, setFile] = useState(null);
     const [showAnalysis, setShowAnalysis] = useState(false);
 
@@ -8,12 +11,26 @@ const UploadResume = ({ setAtsScore }) => {
         setFile(e.target.files[0]);
     };
 
-    const handleAnalyze = () => {
-        if (file) {
-            const score = Math.floor(Math.random() * 26) + 70;
+    const handleAnalyze = async () => {
+        if (!file) {
+            alert("Please select a resume first.");
+            return;
+        }
 
-            setAtsScore(score);
+        try {
+            const text = await extractTextFromPDF(file);
+
+            const result = analyzeResume(text);
+
+            console.log(result);
+
+            setAnalysis(result);
+
             setShowAnalysis(true);
+
+        } catch (error) {
+            console.error(error);
+            alert("Unable to read PDF.");
         }
     };
 
@@ -55,7 +72,7 @@ const UploadResume = ({ setAtsScore }) => {
                             </h3>
 
                             <p className="text-green-400 mb-2">
-                                ATS Score: {atsScore}%
+                                ATS Score: Coming Soon...
                             </p>
 
                             <p className="text-white">Skills Found:</p>

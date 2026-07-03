@@ -7,17 +7,19 @@ import Features from "../components/Features";
 import Footer from "../components/Footer";
 
 const Home = () => {
-  const [atsScore, setAtsScore] = useState(null);
+
+  const [analysis, setAnalysis] = useState(null);
 
   return (
     <>
       <Navbar />
       <Hero />
-      <UploadResume setAtsScore={setAtsScore} />
+      <UploadResume setAnalysis={setAnalysis} />
 
-      {atsScore && (
-        <Dashboard atsScore={atsScore} />
+      {analysis && (
+        <Dashboard analysis={analysis} />
       )}
+      
       <Features />
       <Footer />
     </>
