@@ -3,10 +3,10 @@ import { extractSkills } from "./parser/skillExtractor";
 import { extractEducation } from "./parser/educationExtractor";
 import { extractExperience } from "./parser/experienceExtractor";
 import { extractProjects } from "./parser/projectExtractor";
+import { calculateATSScore } from "../ats/atsScore";
+import { recommendJobs } from "./jobRecommendation";
 
 export const analyzeResume = (text) => {
-
-    const resume = text.toLowerCase();
 
     const { email, phone, linkedin, github } = extractContact(text);
 
@@ -18,20 +18,14 @@ export const analyzeResume = (text) => {
 
     const projects = extractProjects(text);
 
-    let atsScore = 0;
+    const certifications = [];
 
-    // Contact Details
-    if (email) atsScore += 10;
-    if (phone) atsScore += 10;
-    if (linkedin) atsScore += 10;
-    if (github) atsScore += 10;
+    const resumeData = {
+        email,
+        phone,
+        linkedin,
+        github,
 
-    // Skills
-    atsScore += Math.min(skills.length * 5, 30);
-
-    // Maximum Score = 70 (abhi)
-
-    return {
         skills,
 
         education,
@@ -40,21 +34,20 @@ export const analyzeResume = (text) => {
 
         projects,
 
-        certifications: [],
+        certifications,
+    };
 
-        email,
+    const atsScore = calculateATSScore(resumeData);
 
-        phone,
+    const recommendedJobs = recommendJobs(resumeData);
 
-        linkedin,
-
-        github,
+    return {
+        ...resumeData,
 
         atsScore,
 
         suggestions: [],
 
-        recommendedJobs: [],
+        recommendedJobs,
     };
-
 };

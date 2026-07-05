@@ -1,30 +1,8 @@
+import Suggestions from "./Suggestions";
+
 const Dashboard = ({ analysis }) => {
 
   const atsScore = analysis?.atsScore || 0;
-
-  const getJobs = () => {
-    if (atsScore >= 90) {
-      return [
-        "Senior Frontend Developer",
-        "React Developer",
-        "UI Engineer",
-      ];
-    }
-
-    if (atsScore >= 80) {
-      return [
-        "Frontend Developer",
-        "Web Developer",
-        "JavaScript Developer",
-      ];
-    }
-
-    return [
-      "Junior Frontend Developer",
-      "Trainee Web Developer",
-      "Intern - React Developer",
-    ];
-  };
 
   return (
     <section className="bg-slate-900 py-20 px-8">
@@ -86,16 +64,24 @@ const Dashboard = ({ analysis }) => {
             </h3>
 
             <div className="space-y-3">
-              {getJobs().map((job, index) => (
-                <div
-                  key={index}
-                  className="bg-slate-700 p-3 rounded-lg text-gray-300"
-                >
-                  {job}
-                </div>
-              ))}
+              {analysis?.recommendedJobs?.length > 0 ? (
+                analysis.recommendedJobs.map((job, index) => (
+                  <div
+                    key={index}
+                    className="bg-slate-700 p-3 rounded-lg text-gray-300"
+                  >
+                    {job}
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-400">
+                  No recommendations available
+                </p>
+              )}
             </div>
           </div>
+
+          <Suggestions suggestions={analysis?.suggestions || []} />
 
         </div>
 
