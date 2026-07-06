@@ -1,10 +1,10 @@
 import { extractSection } from "./sectionExtractor";
 
 import {
-  DEGREE_REGEX,
-  YEAR_REGEX,
-  COLLEGE_REGEX,
-  BRANCH_REGEX,
+    DEGREE_REGEX,
+    YEAR_REGEX,
+    COLLEGE_REGEX,
+    BRANCH_REGEX,
 } from "./patterns/educationPatterns";
 
 export const extractEducation = (text) => {
@@ -15,7 +15,14 @@ export const extractEducation = (text) => {
     );
 
     if (!educationSection) {
-        return null;
+        return {
+            section: "",
+            degree: "",
+            startYear: "",
+            endYear: "",
+            college: "",
+            branch: "",
+        };
     }
 
     const degreeMatch = educationSection.match(DEGREE_REGEX);
@@ -28,15 +35,10 @@ export const extractEducation = (text) => {
 
     return {
         section: educationSection,
-
-        degree: degreeMatch ? degreeMatch[0] : "",
-
+        degree: degreeMatch?.[0] || "",
         startYear: yearMatches?.[0] || "",
-
         endYear: yearMatches?.[1] || "",
-
-        college: collegeMatch ? collegeMatch[1].trim() : "",
-
-        branch: branchMatch ? branchMatch[1].trim() : "",
+        college: collegeMatch?.[1]?.trim() || "",
+        branch: branchMatch?.[1]?.trim() || "",
     };
 };

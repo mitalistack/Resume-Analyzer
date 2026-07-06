@@ -3,8 +3,10 @@ import { extractSkills } from "./parser/skillExtractor";
 import { extractEducation } from "./parser/educationExtractor";
 import { extractExperience } from "./parser/experienceExtractor";
 import { extractProjects } from "./parser/projectExtractor";
-import { calculateATSScore } from "../ats/atsScore";
+import { calculateATSScore as calculateResumeQualityScore } from "../ats/resumeQualityScore";
 import { recommendJobs } from "./jobRecommendation";
+import { extractCertifications } from "./parser/certificationExtractor";
+import { analyzeWriting } from "./writingAnalyzer";
 
 export const analyzeResume = (text) => {
 
@@ -18,7 +20,7 @@ export const analyzeResume = (text) => {
 
     const projects = extractProjects(text);
 
-    const certifications = [];
+    const certifications = extractCertifications(text);
 
     const resumeData = {
         email,
@@ -37,16 +39,57 @@ export const analyzeResume = (text) => {
         certifications,
     };
 
-    const atsScore = calculateATSScore(resumeData);
+    const writingAnalysis = analyzeWriting(text);
+
+    const resumeQualityResult = calculateResumeQualityScore(resumeData);
+
+    const suggestions = [];
+
+    if (!email) {
+        suggestions.push("Add your email address.");
+    }
+
+    if (!phone) {
+        suggestions.push("Add your phone number.");
+    }
+
+    if (!linkedin) {
+        suggestions.push("Add your LinkedIn profile.");
+    }
+
+    if (!github) {
+        suggestions.push("Add your GitHub profile.");
+    }
+
+    if (skills.length < 8) {
+        suggestions.push("Add more relevant technical skills.");
+    }
+
+    if (projects.length < 2) {
+        suggestions.push("Include at least 2 strong projects.");
+    }
+
+    if (certifications.length === 0) {
+        suggestions.push("Add relevant certifications.");
+    }
+
+    if (!experience?.jobTitle) {
+        suggestions.push("Include internships or work experience if available.");
+    }
 
     const recommendedJobs = recommendJobs(resumeData);
 
     return {
         ...resumeData,
 
-        atsScore,
+        rawText: text,
 
-        suggestions: [],
+        resumeQualityScore: resumeQualityResult.atsScore,
+        resumeQualityBreakdown: resumeQualityResult.breakdown,
+
+        suggestions,
+
+        writingAnalysis,
 
         recommendedJobs,
     };

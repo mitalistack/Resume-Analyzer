@@ -1,5 +1,4 @@
 export const extractSection = (text, startHeading, endHeading) => {
-  const upperText = text.toUpperCase();
 
   const startRegex = new RegExp(
     `(^|\\s{2,})${startHeading}(\\s{2,}|$)`,

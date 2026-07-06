@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import UploadResume from "../components/UploadResume";
-import Dashboard from "../components/Dashboard";
-import Features from "../components/Features";
-import Footer from "../components/Footer";
+import Navbar from "../components/layout/Navbar";
+import Hero from "../components/home/Hero";
+import UploadResume from "../components/resume/UploadResume";
+import Dashboard from "./Dashboard";
+import Features from "../components/home/Features";
+import Footer from "../components/layout/Footer";
 
 const Home = () => {
 
