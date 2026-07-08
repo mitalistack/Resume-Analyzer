@@ -11,7 +11,7 @@ export const calculateATSScore = (resume) => {
 
     // ==========================
     // Skills (25)
-    // ==========================
+
     const skillsCount = resume.skills?.length || 0;
 
     if (skillsCount >= 12) score += 25;
