@@ -358,32 +358,35 @@ npm start
 
 ---
 
-🖥 Usage
-Open application
-Paste Resume text
-Paste Job Description
-Click "Analyze Resume"
-View:
-ATS Score
-Missing Keywords
-Suggestions
-Writing Quality Report
+## 🖥 Usage
+
+1. Open application
+2. Paste Resume text
+3. Paste Job Description
+4. Click "Analyze Resume"
+5. View:
+- ATS Score
+- Missing Keywords
+- Suggestions
+- Writing Quality Report
 
 ---
 
-📸 Screenshots
+## 📸 Screenshots
+
 (Add your UI images here)
 
 Suggested:
 
-Dashboard View
-ATS Score Card
-Keyword Matching Panel
-Suggestions Section
+- Dashboard View
+- ATS Score Card
+- Keyword Matching Panel
+- Suggestions Section
 
 ---
 
-🔍 Example Output
+## 🔍 Example Output
+
 ATS Score: 86/100
 
 Matched Keywords:
@@ -403,30 +406,35 @@ Suggestions:
 
 ---
 
-🧠 Core Logic Highlights
+## 🧠 Core Logic Highlights
+
 🔹 Keyword Matching Logic
-Case-insensitive matching
-Stopword removal
-Frequency analysis
+
+- Case-insensitive matching
+- Stopword removal
+- Frequency analysis
+
 🔹 Writing Quality Detection
 
 Detects:
 
-Generic phrases (e.g., "hard working", "responsible")
-Weak verbs (e.g., "did", "worked")
-Repetition patterns
+- Generic phrases (e.g., "hard working", "responsible")
+- Weak verbs (e.g., "did", "worked")
+- Repetition patterns
 
 ---
 
-⚡ Performance Optimization
-Memoized calculations
-Component-based rendering
-Efficient string parsing
-Reduced unnecessary re-renders
+## ⚡ Performance Optimization
+
+- Memoized calculations
+- Component-based rendering
+- Efficient string parsing
+- Reduced unnecessary re-renders
 
 ---
 
-🔮 Future Improvements
+## 🔮 Future Improvements
+
 🤖 AI-based resume rewriting (LLM integration)
 📄 PDF resume upload & parsing
 🌐 Industry-specific ATS models
@@ -436,28 +444,28 @@ Reduced unnecessary re-renders
 
 ---
 
-🤝 Contributing
+## 🤝 Contributing
 
 Contributions are welcome!
 
 Steps:
 
-Fork repository
-Create feature branch
-Commit changes
-Submit Pull Request
+- Fork repository
+- Create feature branch
+- Commit changes
+- Submit Pull Request
 
 ---
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 Mitali Hariyale
 
-GitHub: https://github.com/your-username
-Email: yourmail@gmail.com
+- GitHub: https://github.com/your-username
+- Email: yourmail@gmail.com
 
 ---
 
-⭐ If you like this project
+## ⭐ If you like this project
 
 Give it a ⭐ on GitHub — it motivates improvement 🚀
