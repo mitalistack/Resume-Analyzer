@@ -8,73 +8,73 @@ An intelligent Resume Analysis Web Application that evaluates resumes against Jo
 
 ### 1. Overview
 
-Is section me project ka short introduction diya jata hai.
-Yahan explain hota hai ki project kya karta hai aur iska main purpose kya hai.
+This section provides a brief introduction to the project.
+It explains what the project does and its main purpose.
 
 👉 Example:
-Ye Resume Analyzer web app users ko unka resume upload karne, ATS score check karne aur improvements suggest karne me help karta hai.
+This Resume Analyzer web application helps users upload their resume, calculate ATS score, and receive improvement suggestions to enhance their chances of getting hired.
 
 ### 2. Features
 
-Is section me project ke main functionalities list ki jati hain.
+This section lists the main functionalities of the project.
 
 👉 Example features:
 
 - Resume upload and parsing
 - ATS score calculation
-- Keyword matching with job description
+- Keyword matching with job descriptions
 - Resume improvement suggestions
 - Writing quality analysis
  
 ### 3. Tech Stack
 
-Isme project me use hone wali technologies mention hoti hain.
+This section highlights the technologies used in the project.
 
 👉 Example:
 
 - Frontend: React.js
 - Backend: Node.js / Express
 - Styling: Tailwind CSS
-- Others: Framer Motion, REST APIs
+- Libraries: Framer Motion, REST APIs
 
 ### 4. System Architecture
 
-Is section me system ka structure explain hota hai ki data ka flow kaise hota hai.
+This section explains the overall structure and data flow of the system.
 
 👉 Example:
 
-- User resume upload karta hai
-- Backend resume parse karta hai
-- Analysis modules run hote hain
-- Results frontend pe show hote hain
+- User uploads a resume
+- Backend processes and parses the resume
+- Analysis modules evaluate the content
+- Results are sent to the frontend for display
 
 ### 5. How It Works
 
-Yahan step-by-step working explain hoti hai.
+This section describes the step-by-step working of the system.
 
 👉 Example:
 
-- User uploads resume
-- System text extract karta hai
-- Job description match hoti hai
-- ATS score generate hota hai
-- Suggestions show hoti hain
+- User uploads a resume
+- System extracts text from the file
+- Job description is matched with resume content
+- ATS score is calculated
+- Suggestions and improvements are displayed
 
 ### 6. ATS Scoring Logic
 
-Is section me explain hota hai score kaise calculate hota hai.
+This section explains how the ATS score is calculated.
 
 👉 Example:
 
-- Keywords match percentage
-- Action verbs usage
+- Keyword matching percentage
+- Use of action verbs
 - Formatting quality
-- Missing sections detection
-- Final weighted score (0–100)
+- Presence of important sections (skills, experience, etc.)
+- Final weighted score out of 100
 
 ### 7. Key Modules
 
-Project ke important parts explain kiye jate hain.
+This section describes the main components of the project.
 
 👉 Example:
 
@@ -86,25 +86,23 @@ Project ke important parts explain kiye jate hain.
 
 ### 8. Project Structure
 
-Isme folder structure explain hota hai.
+This section shows the folder structure of the project.
 
-👉 Example:
-
+```bash
 src/
  ├── components/
  ├── utils/
  ├── pages/
  ├── services/
  └── App.js
+```
  
 ### 9. Installation Guide
 
-Is section me project run karne ke steps hote hain.
-
-👉 Example:
+This section explains how to install and run the project locally.
 
 ```bash
-git clone <repo-url>
+git clone <repository-url>
 cd project-name
 npm install
 npm start
@@ -112,75 +110,68 @@ npm start
 
 ### 10. Usage
 
-Isme bataya jata hai project kaise use karein.
+This section explains how to use the application.
 
-👉 Example:
-
-- Website open karo
-- Resume upload karo
-- Job description add karo
-- Analyze button click karo
+- Open the website
+- Upload your resume
+- Add job description
+- Click on Analyze
+- View results and suggestions
 
 ### 11. Screenshots
 
-Is section me project UI images add ki jati hain taaki demo dikhe.
+This section includes visual previews of the project UI.
 
-👉 Example:
+Example:
 
 - Dashboard view
-- ATS score result page
+- ATS score results page
 - Suggestions panel
 
 ### 12. API / Utility Functions
 
-Isme backend functions ya helper utilities explain hote hain.
+This section explains important helper functions used in the project.
 
-👉 Example:
+Example:
 
-- parseResume() → text extract karta hai
-- calculateATS() → score generate karta hai
-- matchKeywords() → job matching
+- parseResume() → Extracts text from resume
+- calculateATS() → Generates ATS score
+- matchKeywords() → Matches resume with job description
 
 ### 13. Future Improvements
 
-Is section me future plans likhe jate hain.
+This section describes future enhancements planned for the project.
 
-👉 Example:
-
-- AI-based resume improvement
+- AI-based resume optimization
 - Multi-language support
-- PDF export report
+- PDF export of reports
 - Real-time job API integration
 
 ### 14. Performance Optimization
 
-Isme explain hota hai project fast aur efficient kaise hai.
-
-👉 Example:
+This section explains how the project is optimized for performance.
 
 - Lazy loading components
 - Optimized parsing logic
-- Memoized calculations
+- Efficient scoring calculations
 
 ### 15. Contributing
 
-Is section me bataya jata hai ki dusre developers kaise contribute kar sakte hain.
+This section explains how other developers can contribute.
 
-👉 Example:
-
-- Fork the repo
-- Create feature branch
-- Submit pull request
+- Fork the repository
+- Create a new feature branch
+- Make changes and commit
+- Submit a pull request
 
 ### 16. Author
 
-Isme project creator ka naam aur details hoti hain.
+This section contains information about the project creator.
 
-👉 Example:
-Created by Mitali Hariyale
+Created by: Mitali Hariyale
 
-- GitHub: [your-link]
-- LinkedIn: https://www.linkedin.com/in/mitali-hariyale/
+GitHub: https://github.com/mitalistack
+LinkedIn: https://www.linkedin.com/in/mitali-hariyale/
 
 ---
 
@@ -461,8 +452,8 @@ Steps:
 
 Mitali Hariyale
 
-- GitHub: https://github.com/your-username
-- Email: yourmail@gmail.com
+- GitHub: https://github.com/mitalistack
+- Email: mitalihariyale@gmail.com
 
 ---
 
