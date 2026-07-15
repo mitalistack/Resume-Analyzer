@@ -170,8 +170,8 @@ This section contains information about the project creator.
 
 Created by: Mitali Hariyale
 
-GitHub: https://github.com/mitalistack
-LinkedIn: https://www.linkedin.com/in/mitali-hariyale/
+- GitHub: https://github.com/mitalistack
+- LinkedIn: https://www.linkedin.com/in/mitali-hariyale/
 
 ---
 
@@ -315,6 +315,7 @@ Generates improvement feedback.
 
 ## 📂 Project Structure
 
+```bash
 src/
 │
 ├── components/
@@ -335,6 +336,7 @@ src/
 │
 ├── assets/
 └── App.js
+```
 
 ---
 
