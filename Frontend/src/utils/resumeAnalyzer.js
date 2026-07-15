@@ -4,7 +4,7 @@ import { extractEducation } from "./parser/educationExtractor";
 import { extractExperience } from "./parser/experienceExtractor";
 import { extractProjects } from "./parser/projectExtractor";
 import { calculateATSScore as calculateResumeQualityScore } from "../ats/resumeQualityScore";
-import { recommendJobs } from "./jobRecommendation";
+import { matchJobs } from "../ats/jobMatcher";
 import { extractCertifications } from "./parser/certificationExtractor";
 import { analyzeWriting } from "./writingAnalyzer";
 
@@ -77,7 +77,7 @@ export const analyzeResume = (text) => {
         suggestions.push("Include internships or work experience if available.");
     }
 
-    const recommendedJobs = recommendJobs(resumeData);
+    const recommendedJobs = matchJobs(resumeData);
 
     return {
         ...resumeData,
