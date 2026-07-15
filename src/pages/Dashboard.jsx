@@ -3,6 +3,7 @@ import KeywordMatcher from "../components/resume/KeywordMatcherPanel";
 import WritingQuality from "../components/resume/WritingQuality";
 import JobMatchExplanation from "../components/analysis/JobMatchExplanation";
 import RecruiterFeedback from "../components/analysis/RecruiterFeedback";
+import JobRecommendations from "../components/job/JobRecommendations";
 import { FaChartLine, FaMedal } from "react-icons/fa";
 
 const getLabel = (score) => {
@@ -12,9 +13,12 @@ const getLabel = (score) => {
 };
 
 const Dashboard = ({ analysis }) => {
-  const atsScore = analysis?.atsScore || 0;
 
-  const breakdown = analysis?.breakdown || analysis?.scoreBreakdown || {};
+  const atsScore =
+    analysis?.resumeQualityScore || 0;
+
+  const breakdown =
+    analysis?.resumeQualityBreakdown || {};
 
   const breakdownItems = [
     { label: "Keyword Match", value: breakdown.keywordMatch || 0, max: 100 },
@@ -115,28 +119,11 @@ const Dashboard = ({ analysis }) => {
             </div>
           </div>
 
-          {/* JOBS */}
-          <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-            <h3 className="text-xl text-white font-semibold mb-4">
-              Recommended Jobs
-            </h3>
+          <JobRecommendations jobs={analysis?.recommendedJobs} />
 
-            <div className="space-y-2">
-              {analysis?.recommendedJobs?.length > 0 ? (
-                analysis.recommendedJobs.map((job, i) => (
-                  <div
-                    key={i}
-                    className="bg-slate-700 p-3 rounded-lg text-gray-300"
-                  >
-                    💼 {job}
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-400">No recommendations</p>
-              )}
-            </div>
-          </div>
+        </div>
 
+        <div className="mt-8">
           <Suggestions suggestions={analysis?.suggestions || []} />
         </div>
 
