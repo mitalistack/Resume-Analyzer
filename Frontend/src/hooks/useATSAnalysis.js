@@ -1,17 +1,17 @@
 import { analyzeKeywords } from "../services/keywordEngine";
 import { calculateATSScore } from "../services/scoringEngine";
 
-export const useATSAnalysis = (resumeText, jobDescription) => {
+export const useATSAnalysis = (resumeText = "", jobDescription = "") => {
   const keywordResult = analyzeKeywords(resumeText, jobDescription);
 
-  // dummy scores (abhi basic rakhenge)
   const atsScore = calculateATSScore({
-    matchScore: keywordResult.matchScore,
-    skillsScore: 75,
-    experienceScore: 70,
-    structureScore: 80,
-    readabilityScore: 72,
+    keywordMatch: keywordResult.matchScore,
+    skillsMatch: 0,
+    experienceMatch: 0,
+    structureScore: 0,
+    readabilityScore: 0,
     hasQuantifiedAchievements: false,
+    repetitionPenalty: 0,
   });
 
   return {
