@@ -1,102 +1,271 @@
-const ACTION_VERBS = [
-    "developed",
-    "designed",
-    "implemented",
-    "built",
-    "created",
-    "optimized",
-    "integrated",
-    "managed",
-    "engineered",
-    "deployed",
-    "automated",
-    "collaborated",
-    "improved",
-    "led",
-    "delivered",
-];
+export const analyzeWriting = (text = "") => {
+    const resumeText = text.trim();
 
-const WEAK_VERBS = [
-    "worked",
-    "helped",
-    "responsible",
-    "assisted",
-    "participated",
-    "involved",
-];
+    if (!resumeText) {
+        return {
+            score: 0,
+            label: "Not Analyzed",
+            actionVerbScore: 0,
+            metricsScore: 0,
+            readabilityScore: 0,
+            passiveVoiceScore: 0,
+            weakPhraseCount: 0,
+            strengths: [],
+            improvements: [],
+        };
+    }
 
-const GENERIC_PHRASES = [
-    "highly motivated",
-    "results driven",
-    "dynamic professional",
-    "passionate",
-    "hardworking",
-    "team player",
-    "quick learner",
-    "self motivated",
-    "detail oriented",
-];
+    // -----------------------------------
+    // 1. Action verbs
+    // -----------------------------------
+    const actionVerbs = [
+        "developed",
+        "built",
+        "created",
+        "designed",
+        "implemented",
+        "develop",
+        "build",
+        "create",
+        "design",
+        "implemented",
+        "engineered",
+        "optimized",
+        "improved",
+        "integrated",
+        "automated",
+        "deployed",
+        "managed",
+        "led",
+        "delivered",
+        "tested",
+        "debugged",
+        "configured",
+        "developing",
+        "building",
+        "designed",
+    ];
 
-export const analyzeWriting = (text) => {
-    const resume = text.toLowerCase();
+    const lowerText = resumeText.toLowerCase();
 
-    // Action Verbs
-    const actionVerbs = ACTION_VERBS.filter((word) =>
-        resume.includes(word)
+    const actionVerbMatches = actionVerbs.filter((verb) =>
+        new RegExp(`\\b${verb}\\b`, "i").test(lowerText)
     );
 
-    // Weak Verbs
-    const weakVerbs = WEAK_VERBS.filter((word) =>
-        resume.includes(word)
+    const actionVerbScore = Math.min(
+        Math.round(
+            (actionVerbMatches.length / 5) * 100
+        ),
+        100
     );
 
-    // Generic AI Style Phrases
-    const genericPhrases = GENERIC_PHRASES.filter((phrase) =>
-        resume.includes(phrase)
-    );
 
-    // Numbers / Achievements
-    const achievementMatches =
-        resume.match(
-            /\b\d+%|\b\d+\+|\b\d+\s?(users?|clients?|projects?|apis?|features?|days?|months?|years?)\b/gi
+    // -----------------------------------
+    // 2. Quantifiable achievements
+    // -----------------------------------
+    const metricMatches =
+        resumeText.match(
+            /\b\d+(\.\d+)?\s*(%|\+|users|clients|projects|months|years|members|items|features|pages|components)\b/gi
         ) || [];
 
-    // Writing Score
-    let score = 100;
+    const metricsScore = Math.min(
+        Math.round(
+            (metricMatches.length / 3) * 100
+        ),
+        100
+    );
 
-    score -= weakVerbs.length * 5;
-    score -= genericPhrases.length * 5;
 
-    if (actionVerbs.length < 5) score -= 10;
+    // -----------------------------------
+    // 3. Readability
+    // -----------------------------------
+    const sentences = resumeText
+        .split(/[.!?]+/)
+        .map((sentence) => sentence.trim())
+        .filter(Boolean);
 
-    if (achievementMatches.length < 3) score -= 15;
+    const words = resumeText
+        .split(/\s+/)
+        .filter(Boolean);
 
-    score = Math.max(score, 0);
+    const averageSentenceLength =
+        sentences.length > 0
+            ? words.length / sentences.length
+            : words.length;
 
-    const suggestions = [];
+    let readabilityScore = 100;
 
-    if (actionVerbs.length < 5) {
-        suggestions.push("Use more strong action verbs like Developed, Built, Implemented.");
+    if (averageSentenceLength > 30) {
+        readabilityScore = 60;
+    } else if (averageSentenceLength > 25) {
+        readabilityScore = 70;
+    } else if (averageSentenceLength > 20) {
+        readabilityScore = 80;
+    } else if (averageSentenceLength > 15) {
+        readabilityScore = 90;
     }
 
-    if (weakVerbs.length > 0) {
-        suggestions.push("Replace weak verbs such as 'worked' or 'helped' with stronger action verbs.");
+
+    // -----------------------------------
+    // 4. Passive voice detection
+    // -----------------------------------
+    const passiveMatches =
+        lowerText.match(
+            /\b(was|were|is|are|been|being)\s+\w+(ed|en)\b/gi
+        ) || [];
+
+    const passiveCount = passiveMatches.length;
+
+    let passiveVoiceScore = 100;
+
+    if (passiveCount >= 4) {
+        passiveVoiceScore = 40;
+    } else if (passiveCount === 3) {
+        passiveVoiceScore = 60;
+    } else if (passiveCount === 2) {
+        passiveVoiceScore = 75;
+    } else if (passiveCount === 1) {
+        passiveVoiceScore = 90;
     }
 
-    if (genericPhrases.length > 0) {
-        suggestions.push("Avoid generic phrases and use measurable accomplishments instead.");
+
+    // -----------------------------------
+    // 5. Weak phrases
+    // -----------------------------------
+    const weakPhrases = [
+        "responsible for",
+        "worked on",
+        "helped with",
+        "involved in",
+        "good knowledge",
+        "hardworking",
+        "team player",
+        "quick learner",
+        "passionate about",
+        "looking for an opportunity",
+    ];
+
+    const weakPhraseMatches = weakPhrases.filter(
+        (phrase) => lowerText.includes(phrase)
+    );
+
+    const weakPhraseCount =
+        weakPhraseMatches.length;
+
+
+    // -----------------------------------
+    // 6. Final writing score
+    // -----------------------------------
+    let score = Math.round(
+        actionVerbScore * 0.30 +
+        metricsScore * 0.25 +
+        readabilityScore * 0.20 +
+        passiveVoiceScore * 0.15 +
+        (weakPhraseCount === 0 ? 100 : 60) * 0.10
+    );
+
+    score = Math.max(0, Math.min(score, 100));
+
+
+    // -----------------------------------
+    // 7. Score label
+    // -----------------------------------
+    let label;
+
+    if (score >= 85) {
+        label = "Excellent";
+    } else if (score >= 70) {
+        label = "Good";
+    } else if (score >= 50) {
+        label = "Needs Improvement";
+    } else {
+        label = "Weak";
     }
 
-    if (achievementMatches.length < 3) {
-        suggestions.push("Add more quantified achievements using numbers or percentages.");
+
+    // -----------------------------------
+    // 8. Strengths
+    // -----------------------------------
+    const strengths = [];
+
+    if (actionVerbScore >= 70) {
+        strengths.push(
+            "Strong use of action-oriented verbs."
+        );
     }
+
+    if (metricsScore >= 70) {
+        strengths.push(
+            "Good use of measurable achievements."
+        );
+    }
+
+    if (readabilityScore >= 80) {
+        strengths.push(
+            "Resume content is reasonably easy to read."
+        );
+    }
+
+    if (passiveVoiceScore >= 90) {
+        strengths.push(
+            "Very limited use of passive language."
+        );
+    }
+
+    if (weakPhraseCount === 0) {
+        strengths.push(
+            "No common weak resume phrases detected."
+        );
+    }
+
+
+    // -----------------------------------
+    // 9. Improvements
+    // -----------------------------------
+    const improvements = [];
+
+    if (actionVerbScore < 70) {
+        improvements.push(
+            "Use stronger action verbs such as developed, implemented, optimized, and deployed."
+        );
+    }
+
+    if (metricsScore < 70) {
+        improvements.push(
+            "Add measurable results using numbers, percentages, users, or performance improvements."
+        );
+    }
+
+    if (readabilityScore < 80) {
+        improvements.push(
+            "Break long sentences into shorter, clearer bullet points."
+        );
+    }
+
+    if (passiveVoiceScore < 90) {
+        improvements.push(
+            "Reduce passive voice and start bullet points with strong action verbs."
+        );
+    }
+
+    if (weakPhraseCount > 0) {
+        improvements.push(
+            `Replace weak phrases such as "${weakPhraseMatches.join(
+                '", "'
+            )}" with specific achievements.`
+        );
+    }
+
 
     return {
-        writingScore: score,
-        actionVerbs,
-        weakVerbs,
-        genericPhrases,
-        achievements: achievementMatches,
-        suggestions,
+        score,
+        label,
+        actionVerbScore,
+        metricsScore,
+        readabilityScore,
+        passiveVoiceScore,
+        weakPhraseCount,
+        strengths,
+        improvements,
     };
 };

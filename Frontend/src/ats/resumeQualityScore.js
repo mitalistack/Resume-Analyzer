@@ -1,159 +1,183 @@
 export const calculateATSScore = (resume) => {
-  let score = 0;
+    // =========================================
+    // Basic Resume Data
+    // =========================================
+    const skillsCount = resume.skills?.length || 0;
+    const projectsCount = resume.projects?.length || 0;
+    const certificationsCount = resume.certifications?.length || 0;
 
-  // ==========================
-  // Contact Information (10)
-  // ==========================
-  const contactScore =
-    (resume.email ? 3 : 0) +
-    (resume.phone ? 2 : 0) +
-    (resume.linkedin ? 3 : 0) +
-    (resume.github ? 2 : 0);
+    const experience = resume.experience;
 
-  score += contactScore;
+    // =========================================
+    // 1. Contact Information
+    // Maximum: 100
+    // =========================================
+    let contactScore = 0;
 
-  // ==========================
-  // Skills (25)
-  // ==========================
-  const skillsCount = resume.skills?.length || 0;
+    if (resume.email) contactScore += 25;
+    if (resume.phone) contactScore += 20;
+    if (resume.linkedin) contactScore += 30;
+    if (resume.github) contactScore += 25;
 
-  let skillsScore = 0;
+    // =========================================
+    // 2. Skills Match
+    // Maximum: 100
+    // =========================================
+    let skillsMatch = 0;
 
-  if (skillsCount >= 12) skillsScore = 25;
-  else if (skillsCount >= 10) skillsScore = 22;
-  else if (skillsCount >= 8) skillsScore = 18;
-  else if (skillsCount >= 5) skillsScore = 12;
-  else if (skillsCount > 0) skillsScore = 5;
+    if (skillsCount >= 12) skillsMatch = 100;
+    else if (skillsCount >= 10) skillsMatch = 90;
+    else if (skillsCount >= 8) skillsMatch = 80;
+    else if (skillsCount >= 6) skillsMatch = 65;
+    else if (skillsCount >= 4) skillsMatch = 50;
+    else if (skillsCount > 0) skillsMatch = 30;
 
-  score += skillsScore;
+    // =========================================
+    // 3. Experience Fit
+    // Maximum: 100
+    // =========================================
+    let experienceFit = 0;
 
-  // ==========================
-  // Projects (20)
-  // ==========================
-  const projectsCount = resume.projects?.length || 0;
+    if (Array.isArray(experience)) {
+        if (experience.length >= 2) {
+            experienceFit = 100;
+        } else if (experience.length === 1) {
+            experienceFit = 80;
+        }
+    } else if (experience) {
+        if (experience.jobTitle) experienceFit += 30;
+        if (experience.company) experienceFit += 20;
+        if (experience.startDate) experienceFit += 15;
 
-  let projectsScore = 0;
-
-  if (projectsCount >= 3) projectsScore = 20;
-  else if (projectsCount === 2) projectsScore = 16;
-  else if (projectsCount === 1) projectsScore = 10;
-
-  score += projectsScore;
-
-  // ==========================
-  // Experience (15)
-  // ==========================
-  const experience = resume.experience;
-
-  let experienceScore = 0;
-
-  if (Array.isArray(experience)) {
-    if (experience.length >= 2) experienceScore = 15;
-    else if (experience.length === 1) experienceScore = 10;
-  } else if (experience) {
-    if (experience.jobTitle) experienceScore += 4;
-    if (experience.company) experienceScore += 3;
-    if (experience.startDate) experienceScore += 3;
-
-    if (experience.responsibilities?.length >= 3) {
-      experienceScore += 5;
+        if (experience.responsibilities?.length >= 3) {
+            experienceFit += 35;
+        }
     }
-  }
 
-  score += experienceScore;
+    experienceFit = Math.min(experienceFit, 100);
 
-  // ==========================
-  // Education (10)
-  // ==========================
-  const educationScore =
-    (resume.education?.degree ? 3 : 0) +
-    (resume.education?.college ? 4 : 0) +
-    (resume.education?.branch ? 3 : 0);
+    // =========================================
+    // 4. Resume Structure
+    // Maximum: 100
+    // =========================================
+    let resumeStructure = 0;
 
-  score += educationScore;
+    if (resume.email || resume.phone) resumeStructure += 20;
+    if (skillsCount > 0) resumeStructure += 20;
+    if (projectsCount > 0) resumeStructure += 20;
+    if (resume.education?.degree) resumeStructure += 20;
+    if (experience) resumeStructure += 20;
 
-  // ==========================
-  // Certifications (5)
-  // ==========================
-  const certificationsScore =
-    resume.certifications?.length > 0 ? 5 : 0;
+    // =========================================
+    // 5. Readability / Content Quality
+    // Maximum: 100
+    // =========================================
+    let readability = 0;
 
-  score += certificationsScore;
+    const experienceText = Array.isArray(experience)
+        ? experience
+            .map((item) => item.responsibilities?.join(" ") || "")
+            .join(" ")
+        : experience?.responsibilities?.join(" ") || "";
 
-  // ==========================
-  // Resume Completeness (10)
-  // ==========================
-  let completenessScore = 0;
+    const projectText = Array.isArray(resume.projects)
+        ? resume.projects
+            .map(
+                (project) =>
+                    `${project.title || ""} ${project.description || ""}`
+            )
+            .join(" ")
+        : "";
 
-  if (resume.email) completenessScore += 2;
-  if (skillsCount > 0) completenessScore += 2;
-  if (projectsCount > 0) completenessScore += 2;
-  if (resume.education?.degree) completenessScore += 2;
-  if (experience) completenessScore += 2;
+    const resumeText = `${experienceText} ${projectText}`.trim();
 
-  score += completenessScore;
+    // Description length
+    if (resumeText.length >= 500) {
+        readability += 40;
+    } else if (resumeText.length >= 300) {
+        readability += 30;
+    } else if (resumeText.length >= 150) {
+        readability += 20;
+    } else if (resumeText.length > 0) {
+        readability += 10;
+    }
 
-  // ==========================
-  // Quality / Content (5)
-  // ==========================
-  let qualityScore = 0;
-
-  const experienceText = Array.isArray(experience)
-    ? experience
-        .map((item) =>
-          item.responsibilities?.join(" ") || ""
+    // Quantified achievements
+    if (
+        /\d+%|\d+\+|\d+\s*(users|projects|months|years|clients|members)/i.test(
+            resumeText
         )
-        .join(" ")
-    : experience?.responsibilities?.join(" ") || "";
+    ) {
+        readability += 25;
+    }
 
-  const projectText = Array.isArray(resume.projects)
-    ? resume.projects
-        .map((project) =>
-          `${project.title || ""} ${project.description || ""}`
-        )
-        .join(" ")
-    : "";
+    // Certifications
+    if (certificationsCount > 0) {
+        readability += 15;
+    }
 
-  const resumeText = `${experienceText} ${projectText}`;
+    // Professional profiles
+    if (resume.github || resume.linkedin) {
+        readability += 20;
+    }
 
-  // Quantified achievements
-  if (/\d+%|\d+\+|\d+\s*(users|projects|months|years|clients)/i.test(resumeText)) {
-    qualityScore += 2;
-  }
+    readability = Math.min(readability, 100);
 
-  // Sufficient experience/project descriptions
-  if (resumeText.length >= 100) {
-    qualityScore += 2;
-  }
+    // =========================================
+    // 6. Keyword Match
+    // =========================================
+    // At this stage we use the detected skill coverage.
+    // Job-specific keyword matching will be improved
+    // later in the Job Matching Engine.
+    const keywordMatch = Math.min(
+        Math.round(
+            skillsMatch * 0.7 +
+            resumeStructure * 0.3
+        ),
+        100
+    );
 
-  // Certifications or GitHub/LinkedIn improves profile quality
-  if (
-    resume.certifications?.length > 0 ||
-    resume.github ||
-    resume.linkedin
-  ) {
-    qualityScore += 1;
-  }
+    // =========================================
+    // Final ATS Score
+    // =========================================
+    // Weighted score
+    let rawScore =
+        contactScore * 0.10 +
+        skillsMatch * 0.25 +
+        experienceFit * 0.15 +
+        resumeStructure * 0.20 +
+        readability * 0.10 +
+        keywordMatch * 0.20;
 
-  score += qualityScore;
+    // =========================================
+    // Realistic ATS Cap
+    // Maximum possible score = 92
+    // =========================================
+    const finalScore = Math.min(
+        Math.round(rawScore),
+        92
+    );
 
-  // ==========================
-  // Final Score
-  // ==========================
-  const finalScore = Math.min(Math.round(score), 100);
+    return {
+        atsScore: finalScore,
 
-  return {
-    atsScore: finalScore,
+        breakdown: {
+            keywordMatch,
+            skillsMatch,
+            experienceFit,
+            resumeStructure,
+            readability,
 
-    breakdown: {
-      contact: contactScore,
-      skills: skillsScore,
-      projects: projectsScore,
-      experience: experienceScore,
-      education: educationScore,
-      certifications: certificationsScore,
-      completeness: completenessScore,
-      quality: qualityScore,
-    },
-  };
+            // Keep these values too so existing
+            // components don't break.
+            contact: contactScore,
+            skills: skillsMatch,
+            projects: projectsCount,
+            experience: experienceFit,
+            education: resume.education?.degree ? 100 : 0,
+            certifications: certificationsCount > 0 ? 100 : 0,
+            completeness: resumeStructure,
+            quality: readability,
+        },
+    };
 };

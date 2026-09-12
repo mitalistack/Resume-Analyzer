@@ -7,6 +7,7 @@ import JobRecommendations from "../components/job/JobRecommendations";
 import { FaChartLine, FaMedal } from "react-icons/fa";
 
 const getLabel = (score) => {
+  if (!score) return "Not Analyzed";
   if (score >= 85) return "High Match";
   if (score >= 70) return "Moderate Match";
   return "Low Match";
@@ -15,7 +16,7 @@ const getLabel = (score) => {
 const Dashboard = ({ analysis }) => {
 
   const atsScore =
-    analysis?.resumeQualityScore || 0;
+    Number(analysis?.resumeQualityScore) || 0;
 
   const breakdown =
     analysis?.resumeQualityBreakdown || {};
@@ -36,7 +37,7 @@ const Dashboard = ({ analysis }) => {
           Resume Insights Dashboard
         </h2>
 
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
 
           {/* ATS SCORE */}
           <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
@@ -61,7 +62,7 @@ const Dashboard = ({ analysis }) => {
               <div
                 className="h-full bg-green-400 rounded-full transition-all duration-700"
                 style={{
-                  width: `${Math.min(atsScore, 100)}%`,
+                  width: `${Math.min(atsScore, 92) / 92 * 100}%`,
                 }}
               />
             </div>
@@ -81,15 +82,15 @@ const Dashboard = ({ analysis }) => {
 
             <div className="mt-6">
               <span className={`px-4 py-2 rounded-full text-sm font-semibold inline-block
-                ${atsScore >= 90
+                ${atsScore >= 85
                   ? "bg-green-500/20 text-green-400"
-                  : atsScore >= 80
+                  : atsScore >= 70
                     ? "bg-blue-500/20 text-blue-400"
                     : "bg-red-500/20 text-red-400"
                 }`}>
-                {atsScore >= 90
+                {atsScore >= 85
                   ? "Excellent"
-                  : atsScore >= 80
+                  : atsScore >= 70
                     ? "Good"
                     : "Needs Improvement"}
               </span>
@@ -119,7 +120,9 @@ const Dashboard = ({ analysis }) => {
             </div>
           </div>
 
-          <JobRecommendations jobs={analysis?.recommendedJobs} />
+          <div className="md:col-span-3">
+            <JobRecommendations jobs={analysis?.recommendedJobs} />
+          </div>
 
         </div>
 
@@ -149,7 +152,7 @@ const Dashboard = ({ analysis }) => {
 
               <div className="h-3 bg-slate-700 rounded-full">
                 <div
-                  className="h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-700"
+                  className="h-3 bg-linear-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-700"
                   style={{
                     width: `${(item.value / item.max) * 100}%`,
                   }}

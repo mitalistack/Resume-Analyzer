@@ -7,6 +7,7 @@ import { calculateATSScore as calculateResumeQualityScore } from "../ats/resumeQ
 import { matchJobs } from "../ats/jobMatcher";
 import { extractCertifications } from "./parser/certificationExtractor";
 import { analyzeWriting } from "./writingAnalyzer";
+import { generateSuggestions } from "./suggestions";
 
 export const analyzeResume = (text) => {
 
@@ -27,55 +28,18 @@ export const analyzeResume = (text) => {
         phone,
         linkedin,
         github,
-
         skills,
-
         education,
-
         experience,
-
         projects,
-
         certifications,
+        rawText: text
     };
-
     const writingAnalysis = analyzeWriting(text);
 
     const resumeQualityResult = calculateResumeQualityScore(resumeData);
 
-    const suggestions = [];
-
-    if (!email) {
-        suggestions.push("Add your email address.");
-    }
-
-    if (!phone) {
-        suggestions.push("Add your phone number.");
-    }
-
-    if (!linkedin) {
-        suggestions.push("Add your LinkedIn profile.");
-    }
-
-    if (!github) {
-        suggestions.push("Add your GitHub profile.");
-    }
-
-    if (skills.length < 8) {
-        suggestions.push("Add more relevant technical skills.");
-    }
-
-    if (projects.length < 2) {
-        suggestions.push("Include at least 2 strong projects.");
-    }
-
-    if (certifications.length === 0) {
-        suggestions.push("Add relevant certifications.");
-    }
-
-    if (!experience?.jobTitle) {
-        suggestions.push("Include internships or work experience if available.");
-    }
+    const suggestions = generateSuggestions(resumeData);
 
     const recommendedJobs = matchJobs(resumeData);
 

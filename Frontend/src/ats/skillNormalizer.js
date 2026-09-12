@@ -1,40 +1,104 @@
 const skillAliases = {
-    
-  "react.js": "react",
-  "reactjs": "react",
+    // React
+    "react.js": "react",
+    "reactjs": "react",
+    "react js": "react",
 
-  "node.js": "node",
-  "nodejs": "node",
+    // JavaScript
+    "javascript": "javascript",
+    "js": "javascript",
 
-  "express.js": "express",
-  "expressjs": "express",
+    // TypeScript
+    "typescript": "typescript",
+    "ts": "typescript",
 
-  "javascript": "javascript",
-  "js": "javascript",
+    // HTML
+    "html5": "html",
+    "html": "html",
 
-  "typescript": "typescript",
-  "ts": "typescript",
+    // CSS
+    "css3": "css",
+    "css": "css",
 
-  "html5": "html",
-  "css3": "css",
+    // Tailwind CSS
+    "tailwindcss": "tailwind css",
+    "tailwind": "tailwind css",
+    "tailwind css": "tailwind css",
 
-  "tailwindcss": "tailwind css",
-  "tailwind": "tailwind css",
+    // Bootstrap
+    "bootstrap": "bootstrap",
 
-  "mongodb": "mongodb",
-  "mongo": "mongodb",
+    // Node.js
+    "node.js": "node.js",
+    "nodejs": "node.js",
+    "node js": "node.js",
+    "node": "node.js",
 
-  "restful api": "rest api",
-  "restful": "rest api",
+    // Express.js
+    "express.js": "express.js",
+    "expressjs": "express.js",
+    "express js": "express.js",
+    "express": "express.js",
 
-  "gitlab": "git",
+    // MongoDB
+    "mongodb": "mongodb",
+    "mongo db": "mongodb",
+    "mongo": "mongodb",
+
+    // REST API
+    "rest api": "rest api",
+    "rest apis": "rest api",
+    "restful api": "rest api",
+    "restful apis": "rest api",
+    "restful": "rest api",
+
+    // Git
+    "git": "git",
+    "gitlab": "git",
+
+    // GitHub
+    "github": "github",
+
+    // Redux
+    "redux": "redux",
+
+    // Firebase
+    "firebase": "firebase",
+
+    // Next.js
+    "next.js": "next.js",
+    "nextjs": "next.js",
+    "next js": "next.js",
+
+    // Vite
+    "vite": "vite",
+
+    // Programming Languages
+    "java": "java",
+    "python": "python",
+    "c": "c",
+    "c++": "c++",
+    "cpp": "c++",
+
+    // Database
+    "mysql": "mysql",
 };
 
 export const normalizeSkill = (skill = "") => {
-  const cleanedSkill = skill
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, " ");
+    const cleanedSkill = skill
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
 
-  return skillAliases[cleanedSkill] || cleanedSkill;
+    return skillAliases[cleanedSkill] || cleanedSkill;
+};
+
+export const normalizeSkills = (skills = []) => {
+    return [
+        ...new Set(
+            skills
+                .map(normalizeSkill)
+                .filter(Boolean)
+        ),
+    ];
 };

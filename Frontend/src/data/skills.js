@@ -1,24 +1,35 @@
 export const skillDatabase = [
-  "React",
-  "JavaScript",
-  "TypeScript",
-  "HTML",
-  "CSS",
-  "Tailwind CSS",
-  "Bootstrap",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "MySQL",
-  "Java",
-  "Python",
-  "C",
-  "C++",
-  "Git",
-  "GitHub",
-  "Redux",
-  "REST API",
-  "Firebase",
-  "Vite",
-  "Next.js",
+    // Frontend
+    "React",
+    "JavaScript",
+    "TypeScript",
+    "HTML",
+    "CSS",
+    "Tailwind CSS",
+    "Bootstrap",
+    "Redux",
+    "Next.js",
+    "Vite",
+
+    // Backend
+    "Node.js",
+    "Express.js",
+
+    // Databases
+    "MongoDB",
+    "MySQL",
+    "Firebase",
+
+    // Programming Languages
+    "Java",
+    "Python",
+    "C",
+    "C++",
+
+    // Tools & Platforms
+    "Git",
+    "GitHub",
+
+    // APIs & Concepts
+    "REST API",
 ];

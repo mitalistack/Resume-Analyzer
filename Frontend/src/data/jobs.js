@@ -1,46 +1,221 @@
 const jobs = [
-  {
-    id: 1,
-    title: "Frontend Developer",
-    company: "TechNova",
-    type: "Full Time",
-    level: "Fresher",
+    {
+        id: 1,
+        title: "Frontend Developer",
+        company: "TechNova",
+        location: "Bangalore",
+        type: "Full Time",
+        level: "Fresher",
+        experience: 0,
+        source: "LinkedIn",
+        sourceUrl: "",
+        skills: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "React",
+            "Tailwind CSS",
+            "Git",
+        ],
+        description:
+            "Develop responsive web applications using React and modern frontend technologies.",
+    },
 
-    skills: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Tailwind CSS",
-      "Git",
-    ],
+    {
+        id: 2,
+        title: "MERN Stack Developer",
+        company: "WebCraft Technologies",
+        location: "Remote",
+        type: "Full Time",
+        level: "Fresher",
+        experience: 0,
+        source: "Naukri",
+        sourceUrl: "",
+        skills: [
+            "React",
+            "JavaScript",
+            "Node.js",
+            "Express.js",
+            "MongoDB",
+            "REST API",
+            "Git",
+        ],
+        description:
+            "Build and maintain full-stack web applications using the MERN stack.",
+    },
 
-    experience: 0,
+    {
+        id: 3,
+        title: "React Developer",
+        company: "CodeSphere",
+        location: "Pune",
+        type: "Full Time",
+        level: "Fresher",
+        experience: 0,
+        source: "Unstop",
+        sourceUrl: "",
+        skills: [
+            "React",
+            "JavaScript",
+            "HTML",
+            "CSS",
+            "Git",
+            "REST API",
+        ],
+        description:
+            "Create modern and reusable React components for web applications.",
+    },
 
-    description:
-      "Develop responsive web applications using React and modern frontend technologies."
-  },
+    {
+        id: 4,
+        title: "Backend Developer",
+        company: "CodeCraft",
+        location: "Hyderabad",
+        type: "Full Time",
+        level: "Fresher",
+        experience: 0,
+        source: "Naukri",
+        sourceUrl: "",
+        skills: [
+            "Node.js",
+            "Express.js",
+            "MongoDB",
+            "REST API",
+            "Git",
+        ],
+        description:
+            "Develop scalable backend services and REST APIs for web applications.",
+    },
 
-  {
-    id: 2,
-    title: "Backend Developer",
-    company: "CodeCraft",
-    type: "Full Time",
-    level: "Fresher",
+    {
+        id: 5,
+        title: "Full Stack Developer",
+        company: "InnovateLabs",
+        location: "Remote",
+        type: "Full Time",
+        level: "Fresher",
+        experience: 0,
+        source: "LinkedIn",
+        sourceUrl: "",
+        skills: [
+            "React",
+            "JavaScript",
+            "Node.js",
+            "Express.js",
+            "MongoDB",
+            "HTML",
+            "CSS",
+            "Git",
+        ],
+        description:
+            "Work across frontend and backend systems to build complete web applications.",
+    },
 
-    skills: [
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "REST API",
-      "JWT",
-    ],
+    {
+        id: 6,
+        title: "Web Developer Intern",
+        company: "StartupHub",
+        location: "Indore",
+        type: "Internship",
+        level: "Internship",
+        experience: 0,
+        source: "Unstop",
+        sourceUrl: "",
+        skills: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "React",
+            "Git",
+        ],
+        description:
+            "Assist in developing responsive websites and frontend features.",
+    },
 
-    experience: 0,
+    {
+        id: 7,
+        title: "Node.js Developer",
+        company: "TechBridge",
+        location: "Bangalore",
+        type: "Full Time",
+        level: "Fresher",
+        experience: 0,
+        source: "Naukri",
+        sourceUrl: "",
+        skills: [
+            "Node.js",
+            "Express.js",
+            "JavaScript",
+            "MongoDB",
+            "REST API",
+            "Git",
+        ],
+        description:
+            "Build backend APIs and server-side applications using Node.js.",
+    },
 
-    description:
-      "Build scalable backend services and REST APIs."
-  }
+    {
+        id: 8,
+        title: "Software Engineer",
+        company: "NextGen Systems",
+        location: "Pune",
+        type: "Full Time",
+        level: "Entry Level",
+        experience: 0,
+        source: "LinkedIn",
+        sourceUrl: "",
+        skills: [
+            "JavaScript",
+            "React",
+            "Git",
+            "REST API",
+        ],
+        description:
+            "Develop software solutions and collaborate with engineering teams.",
+    },
+
+    {
+        id: 9,
+        title: "Frontend Developer Intern",
+        company: "PixelWorks",
+        location: "Remote",
+        type: "Internship",
+        level: "Internship",
+        experience: 0,
+        source: "Unstop",
+        sourceUrl: "",
+        skills: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "React",
+            "Tailwind CSS",
+        ],
+        description:
+            "Work on responsive user interfaces and frontend development tasks.",
+    },
+
+    {
+        id: 10,
+        title: "Junior Full Stack Developer",
+        company: "DevNest",
+        location: "Mumbai",
+        type: "Full Time",
+        level: "Entry Level",
+        experience: 0,
+        source: "Upwork",
+        sourceUrl: "",
+        skills: [
+            "React",
+            "JavaScript",
+            "Node.js",
+            "Express.js",
+            "MongoDB",
+            "Git",
+        ],
+        description:
+            "Develop and maintain full-stack applications using modern JavaScript technologies.",
+    },
 ];
 
 export default jobs;
